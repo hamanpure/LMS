@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title><%= title %></title>
+    <link rel="stylesheet" href="./css/styles.css" />
+    <script src="https://cdn.tailwindcss.com"></script>
+  </head>
+  <body class="flex flex-col min-h-screen">
+    <%- include("header.ejs") %>
+
+    <!-- Main Content -->
+    <div class="flex-grow grid grid-cols-6 mb-4">
+      <div class="col-start-3 col-span-2">
+        <% if (true) { %>
+            <% for( let index = 0; index < 5; index++ ) { %>
+                <%- include("createdcourse.ejs") %>
+            <% } %>
+        <% } %>
+      </div>
+    </div>
+
+    <%- include("footer.ejs") %>
+  </body>
+</html>

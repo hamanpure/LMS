@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>LMS</title>
+    <link rel="stylesheet" href="./css/style.css" />
+    <script src="https://cdn.tailwindcss.com"></script>
+  </head>
+  <body class="min-h-screen flex flex-col">
+    <!-- Header -->
+    <%- include("header.ejs") %>
+    
+    <!-- Main Content -->
+    <div class="flex-grow grid grid-cols-6 mb-4">
+      <div class="col-start-3 col-span-2">
+        <div class="grid grid-cols-2 py-4 place-items-center gap-2">
+            <h1 class="text-4xl font-semibold text-gray-700 py-4">
+              Course Name
+            </h1>
+            <a href="addcourse">
+                <button class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">
+                  Enroll now
+                </button>
+            </a>
+        </div>
+        <p class="py-2 text-gray-600">
+           Course description
+        </p>
+        <!-- Educator Name -->
+        <p class="py-2 text-gray-600 font-medium">
+          Educator: <span class="font-bold">John Doe</span> <!-- Replace 'John Doe' with the actual educator's name -->
+        </p>
+        
+        <% for(let index = 0; index < 5; index++) { 
+          const pageId = `page-${index + 1}`;  // Generate unique page ID for each chapter
+        %>
+            <!-- Pass pageId to chapter.ejs -->
+            <%- include("chapter.ejs", { pageId: pageId }) %>
+        <% } %>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <%- include('footer.ejs') %>
+  </body>
+</html>

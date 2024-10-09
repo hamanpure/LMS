@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title><%= title %></title>
+    <link rel="stylesheet" href="./css/styles.css" />
+    <script src="https://cdn.tailwindcss.com"></script>
+  </head>
+  <body class="flex flex-col min-h-screen">
+    <header class="bg-orange-400">
+      <nav
+        class="mx-auto text-lg font-bold flex max-w-7xl items-center justify-between p-6 lg:px-8"
+        aria-label="Global"
+      >
+        <div class="flex lg:flex-1 text-white">
+          <a href="/" class="-m-1.5 p-1.5">
+            <span class="sr-only">LMS</span>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke-width="1.5"
+              stroke="currentColor"
+              class="size-6"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M12 21v-8.25M15.75 21v-8.25M8.25 21v-8.25M3 9l9-6 9 6m-1.5 12V10.332A48.36 48.36 0 0 0 12 9.75c-2.551 0-5.056.2-7.5.582V21M3 21h18M12 6.75h.008v.008H12V6.75Z"
+              />
+            </svg>
+          </a>
+          <a href="/"><h1 class="px-2">Learning Management System</h1></a>
+        </div>
+      </nav>
+    </header>
+
+    <!-- Main Content -->
+    <div class="flex-grow grid grid-cols-6 mb-4">
+      <div class="col-start-3 col-span-2">
+        <h6 class="py-4">Login to your account</h6>
+        <form action="/users" method="post">
+          <div class="py-3">
+            <label for="email">Email:</label>
+            <input
+              type="email"
+              name="email"
+              class="border border-gray-300 text-gray-900 rounded p-2 w-full"
+            />
+          </div>
+          <div class="py-3">
+            <label for="password">Password:</label>
+            <input
+              type="password"
+              name="password"
+              class="border border-gray-300 text-gray-900 rounded p-2 w-full"
+              required
+            />
+          </div>
+          <div class="py-3">
+            <button
+              type="submit"
+              class="text-white bg-green-600 hover:bg-green-800 font-medium rounded px-5 py-2"
+            >
+              Sign in
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <%- include("footer.ejs") %>
+  </body>
+</html>

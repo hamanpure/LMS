@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title><%= title%></title>
+    <link rel="stylesheet" href="./css/style.css" />
+    <script src="https://cdn.tailwindcss.com"></script>
+  </head>
+  <body class="min-h-screen flex flex-col">
+    <!-- Header -->
+    <%- include("header.ejs") %>
+
+    <!-- Main Content -->
+    <div class="flex-grow my-6 mx-4">
+      <!-- Joined Courses Section -->
+       <% if (false) { %>
+        
+        <!-- admin actions -->
+        <section class="mb-8">
+          <h1 class="text-xl font-semibold text-gray-700 py-4">
+            Administrative actions
+          </h1>
+          <a href="addcourse"
+            ><button
+              class="bg-teal-500 hover:bg-teal-700 text-white font-bold py-2 px-4 rounded"
+            >
+              Creat a new course
+            </button></a
+          >
+          <a href="mycourse">
+            <button
+              class="bg-purple-500 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded"
+            >
+              My courses
+            </button>
+          </a>
+          <a href="report">
+            <button
+              class="bg-cyan-500 hover:bg-cyan-700 text-white font-bold py-2 px-4 rounded"
+            >
+              View reports
+            </button>
+          </a>
+        </section>
+       
+       <% } else { %>
+        <section class="mb-8">
+          <h1 class="text-xl font-semibold text-gray-700 py-4">
+            You have joined the following courses
+          </h1>
+          
+          <div class="flex flex-wrap gap-4"> 
+            <% for( let index = 0; index < 1; index++ ) { %>
+              <div class="w-96 bg-white shadow-md rounded-lg overflow-hidden m-4"> 
+                <div class="p-6">
+                  <h2 class="text-xl font-semibold text-gray-800">Course Name</h2>
+                  <div class="my-6 grid grid-cols-2 place-items-center">
+                    <p class="text-lg text-gray-500">Instructor</p>
+                    <div class="grid grid-cols-2 place-items-center">
+                      <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke-width="1.5"
+                      stroke="currentColor"
+                      class="size-6 ml-2" 
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z"
+                      />
+                    </svg>
+                    <span>0</span>
+                    </div>
+                  </div>
+                  <a href="continuecourse">
+                    <div class="my-4 flex space-x-4"> 
+                      <button class="flex-1 bg-blue-500 text-white py-2 rounded hover:bg-blue-600 transition duration-200 flex items-center justify-center space-x-2">
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                          stroke-width="1.5"
+                          stroke="currentColor"
+                          class="w-6 h-6"
+                        >
+                          <path
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            d="M5.25 5.653c0-.856.917-1.398 1.667-.986l11.54 6.347a1.125 1.125 0 0 1 0 1.972l-11.54 6.347a1.125 1.125 0 0 1-1.667-.986V5.653Z"
+                          />
+                        </svg>
+                        <span>Continue</span>
+                      </button>
+                      <button class="flex-1 bg-purple-500 text-white py-2 rounded">
+                        Completed 0%
+                      </button>
+                    </div>
+                  </a>
+                </div>
+              </div>
+            <% } %>
+          </div>
+        </section>
+        <% } %>
+        
+
+      <!-- Available Courses Section -->
+      <section>
+        <h1 class="text-xl font-semibold text-gray-700 py-4">
+          Available Courses
+        </h1>
+        <%- include("availablecourses") %>
+      </section>
+    </div>
+
+    <!-- Footer -->
+    <%- include('footer.ejs') %>
+  </body>
+</html>

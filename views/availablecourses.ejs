@@ -1,0 +1,40 @@
+<div class="flex flex-wrap gap-4">
+  <% for( let index = 0; index < 4; index++ ) { %> 
+    <div class="w-96 bg-white shadow-md rounded-lg overflow-hidden m-4">
+      <div class="p-6">
+        <h2 class="text-xl font-semibold text-gray-800">Course Name</h2>
+        <div class="my-6 grid grid-cols-2 place-items-center">
+          <p class="text-lg text-gray-500">Instructor</p>
+          <div class="grid grid-cols-2 place-items-center">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke-width="1.5"
+              stroke="currentColor"
+              class="size-6 ml-2" 
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z"
+              />
+            </svg>
+            <span>0</span>
+          </div>
+        </div>
+        <div class="my-4 flex space-x-4">
+          <!-- Add link to the course page -->
+          <a href="viewcourse" class="flex-1">
+            <button class="w-full bg-sky-500 text-white py-2 rounded hover:bg-sky-600 transition duration-200">
+              View Course
+            </button>
+          </a>
+          <button class="flex-1 bg-green-500 text-white py-2 rounded hover:bg-green-600 transition duration-200">
+            Enroll
+          </button>
+        </div>
+      </div>
+    </div>
+  <% } %>
+</div>
