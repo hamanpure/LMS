@@ -1,5 +1,3 @@
-Great! You can update the README to include the link to your deployment for users to access the live version of your Learning Management System (LMS). Here's how you can incorporate that link:
-
 ```markdown
 # Learning Management System (LMS)
 
