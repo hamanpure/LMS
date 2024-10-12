@@ -13,6 +13,7 @@
     // Redirect to the editcourse page with the course_id as a query parameter
     window.location.href = `/editcourse?course_id=${courseId}`;
   }
+  
   function deletecourse(id) {
     var token = document.querySelector('meta[name="csrf-token"]').getAttribute("content");
 

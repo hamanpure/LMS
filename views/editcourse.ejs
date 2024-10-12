@@ -23,6 +23,7 @@
         .getAttribute("content");
         
       // Delete page
+      
       function deletePage(pageId) {
         if (confirm('Are you sure you want to delete this page?')) {
           fetch(`/deletepage/${pageId}`, {
