@@ -1,4 +1,3 @@
-```markdown
 # Learning Management System (LMS)
 
 ## Overview
@@ -67,7 +66,6 @@ You can access the live version of the application [here](https://lms-4um5.onren
    ```bash
    git clone https://github.com/HAMANPUREVAIBHAV/LMS.git
    cd LMS
-   ```
 
 2. Install dependencies:
 
