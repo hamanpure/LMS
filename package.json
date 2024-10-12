@@ -4,7 +4,11 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon -e js, ejs"
+    "start": "nodemon -e js, ejs",
+    "test": "NODE_ENV=test jest --detectOpenHandles",
+    "prepare": "husky install",
+    "pretest": "NODE_ENV=test npx sequelize-cli db:drop && NODE_ENV=test npx sequelize-cli db:create"
+    
   },
   "lint-staged": {
     "*.js": [
@@ -30,6 +34,7 @@
   },
   "devDependencies": {
     "@eslint/js": "^9.12.0",
+    "cheerio": "^1.0.0",
     "eslint": "^9.12.0",
     "globals": "^15.10.0",
     "husky": "^7.0.4",

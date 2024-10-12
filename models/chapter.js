@@ -15,7 +15,7 @@ module.exports = (sequelize, DataTypes) => {
 
       // A chapter has many pages (One-to-Many)
       Chapter.hasMany(models.Page, {
-        foreignKey: "chapter_id"
+        foreignKey: "chapter_id",
       });
     }
   }

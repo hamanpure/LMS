@@ -759,8 +759,8 @@ app.post(
     try {
       const pageId = req.params.id; // Get pageId and completed status from the request body
       const studentId = req.user.id; // Assuming the logged-in user is the student
-      console.log("-----------------------------------");
-      console.log(pageId);
+      // console.log("-----------------------------------");
+      // console.log(pageId);
       // Find the progress entry for the current user and page
       let progress = await Progress.findOne({
         where: { student_id: studentId, page_id: pageId },

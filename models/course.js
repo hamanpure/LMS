@@ -29,7 +29,7 @@ module.exports = (sequelize, DataTypes) => {
       // A course can have many reports
       Course.hasMany(models.Report, {
         foreignKey: "course_id",
-        as:"report"
+        as: "report",
       });
     }
 
