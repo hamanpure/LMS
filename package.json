@@ -15,10 +15,18 @@
   "author": "vaibhav",
   "license": "ISC",
   "dependencies": {
+    "bcrypt": "^5.1.1",
+    "connect-ensure-login": "^0.1.1",
+    "connect-flash": "^0.1.1",
+    "cookie-parser": "^1.4.7",
     "ejs": "^3.1.10",
     "express": "^4.21.0",
+    "express-session": "^1.18.1",
+    "passport": "^0.7.0",
+    "passport-local": "^1.0.0",
     "pg": "^8.13.0",
-    "sequelize": "^6.37.4"
+    "sequelize": "^6.37.4",
+    "tiny-csrf": "^1.1.4"
   },
   "devDependencies": {
     "@eslint/js": "^9.12.0",

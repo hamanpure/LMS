@@ -3,9 +3,51 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>LMS</title>
+    <meta name="csrf-token" content="<%= csrfToken %>">
+    <title><%= title %></title>
     <link rel="stylesheet" href="./css/style.css" />
     <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      var token = document.querySelector('meta[name="csrf-token"]').getAttribute("content");
+      function checkpage(id){
+            fetch(`/mark-complete/${id}`,{
+                method: "post",
+                headers: {"Content-Type":"application/json"},
+                body: JSON.stringify({
+                    "_csrf":token
+                })
+            }).then((res)=>{
+                if (res.ok){
+                    window.location.reload();
+                }
+            }).catch((error)=> console.log(error));
+
+        }
+        function checkpage(pageId) {
+    const checkbox = document.querySelector(`input[data-page-id="${pageId}"]`); // Find the checkbox
+    const completed = checkbox.checked; // Get whether the checkbox is checked (true) or unchecked (false)
+
+    // Send the completed status (true or false) to the server
+    fetch(`/mark-complete/${pageId}`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        "_csrf": token,
+        completed: completed // Send the current status (true or false)
+      })
+    })
+    .then((res) => {
+      if (res.ok) {
+        console.log(`Progress updated for page ${pageId} - Completed: ${completed}`);
+        window.location.reload(); 
+      }
+    })
+    .catch((error) => console.error("Error:", error));
+  }
+ 
+    </script>
   </head>
   <body class="min-h-screen flex flex-col">
     <!-- Header -->
@@ -16,34 +58,64 @@
       <!-- Left Column for Chapters and Pages -->
       <div class="col-start-2 col-span-2 pr-4">
         <h1 class="text-4xl font-semibold text-gray-700 py-4">
-          Course Name
+          <%= course.dataValues.name %>
         </h1>
         <p class="py-2 text-gray-600">
-           Course description
+           <%= course.dataValues.description %>
         </p>
         <p class="py-2 text-gray-600 font-medium">
-          Educator: <span class="font-bold">John Doe</span>
+          Educator: <span class="font-bold"><%= educator.dataValues.name %></span>
         </p>
 
-        <% for(let index = 0; index < 5; index++) { 
-          const pageId = `page-${index + 1}`;  // Generate unique page ID for each chapter
-        %>
-          <div class="py-4">
-            <div class="box-content bg-orange-500 text-white text-lg font-medium rounded-lg py-4 hover:box-content shadow-md hover:shadow-lg hover:bg-orange-600 transition-all duration-300 ease-in-out cursor-pointer" onclick="togglePages('<%= pageId %>-pages')">
-              <p class="pl-4">Chapter <%= index + 1 %></p>
+        <% 
+        let totalPages = 0;
+        let completedPages = 0;
+      %>
+      <% for (let index = 0; index < course.Chapters.length; index++) { 
+        totalPages += course.Chapters[index].Pages.length; 
+        for (let i = 0; i < course.Chapters[index].Pages.length; i++) {
+          const page = course.Chapters[index].Pages[i];
+          if (progressMap[page.id]) {
+            completedPages++;
+          }
+        }
+      } %>
+      <p class="py-2 text-gray-600 font-bold">
+        Progress: <span class="text-orange-600"><%= completedPages %> of <%= totalPages %> pages completed</span>
+      </p>
+
+        <% if (course.Chapters.length > 0) { %>
+          <% for (let index = 0; index < course.Chapters.length; index++) { 
+            const pageId = `page-${index + 1}`; 
+          %>
+            <div class="py-4">
+              <div class="box-content bg-orange-500 text-white text-lg font-medium rounded-lg py-4 hover:box-content shadow-md hover:shadow-lg hover:bg-orange-600 transition-all duration-300 ease-in-out cursor-pointer" onclick="togglePages('<%= pageId %>-pages')">
+                <p class="pl-4"> <%= course.Chapters[index].dataValues.name %></p>
+              </div>
+              
+              <ul id="<%= pageId %>-pages" class="hidden pl-8 mt-2 transition-all duration-500 ease-in-out">
+    <% if (course.Chapters[index].Pages.length > 0) { %>
+        <% for (let i = 0; i < course.Chapters[index].Pages.length; i++) { %>
+            <% const page = course.Chapters[index].Pages[i]; %>
+            <% const isCompleted = progressMap[page.id] ? 'checked' : ''; %>
+            <li 
+                onclick="showPageContent('<%= page.content %>', '<%= course.Chapters[index].dataValues.name %>', <%= page.id %>)" 
+                class="py-2 pl-4 pr-2 bg-gray-200 rounded-lg mb-2 border-l-4 border-orange-500 hover:bg-gray-300 hover:shadow-md transition-all duration-300 ease-in-out cursor-pointer">
+                
+                <input type="checkbox" data-page-id="<%= page.id %>" onclick="checkpage(<%= page.id %>)" class="form-checkbox h-5 w-5 text-orange-600 border-gray-300 rounded focus:ring-orange-500" <%= isCompleted %> />
+                <label class="ml-2 text-gray-700"> <%= page.name %> </label>
+            </li>
+        <% } %>
+    <% } else { %>
+        <p class="text-gray-600 py-2">No pages available.</p>
+    <% } %>
+</ul>
+
+
             </div>
-            <ul id="<%= pageId %>-pages" class="hidden pl-8 mt-2 transition-all duration-500 ease-in-out">
-              <li class="py-2 pl-4 pr-2 bg-gray-200 rounded-lg mb-2 border-l-4 border-orange-500 hover:bg-gray-300 hover:shadow-md transition-all duration-300 ease-in-out cursor-pointer" onclick="showPageContent('Content for Page 1 of Chapter <%= index + 1 %>', '<%= index + 1 %>')">
-                Page 1 for <%= pageId %>
-              </li>
-              <li class="py-2 pl-4 pr-2 bg-gray-200 rounded-lg mb-2 border-l-4 border-orange-500 hover:bg-gray-300 hover:shadow-md transition-all duration-300 ease-in-out cursor-pointer" onclick="showPageContent('Content for Page 2 of Chapter <%= index + 1 %>', '<%= index + 1 %>')">
-                Page 2 for <%= pageId %>
-              </li>
-              <li class="py-2 pl-4 pr-2 bg-gray-200 rounded-lg mb-2 border-l-4 border-orange-500 hover:bg-gray-300 hover:shadow-md transition-all duration-300 ease-in-out cursor-pointer" onclick="showPageContent('Content for Page 3 of Chapter <%= index + 1 %>', '<%= index + 1 %>')">
-                Page 3 for <%= pageId %>
-              </li>
-            </ul>
-          </div>
+          <% } %>
+        <% } else { %>
+          <p class="text-gray-600 py-4">No chapters created yet.</p>
         <% } %>
       </div>
 
@@ -53,10 +125,7 @@
         <div id="page-content" class="mt-4 p-4 bg-gray-100 rounded-lg shadow-md">
           <p>Select a page to view its content here.</p>
         </div>
-        <div class="mt-4">
-          <input type="checkbox" id="complete-checkbox" class="form-checkbox h-5 w-5 text-orange-600 border-gray-300 rounded focus:ring-orange-500" />
-          <label for="complete-checkbox" class="ml-2 text-gray-700">Mark as complete</label>
-        </div>
+        
       </div>
     </div>
 
@@ -64,15 +133,19 @@
     <%- include('footer.ejs') %>
 
     <script>
+      let currentPageId;
+
       function togglePages(id) {
         const pagesList = document.getElementById(id);
         pagesList.classList.toggle('hidden');
       }
 
-      function showPageContent(content, chapter) {
+      function showPageContent(content, chapter, pageId) {
+        currentPageId = pageId; // Store the current page ID
         const pageContentDiv = document.getElementById('page-content');
-        pageContentDiv.innerHTML = `<h3 class="text-xl font-bold">Content for Page ${chapter}</h3><p>${content}</p>`;
+        pageContentDiv.innerHTML = `<h3 class="text-xl font-bold">${chapter}</h3><p>${content}</p>`;
       }
-    </script>
+
+         </script>
   </body>
-</html>
+</html>  

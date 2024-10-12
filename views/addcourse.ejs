@@ -3,6 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="csrf-token" content="<%= csrfToken %>">
     <title><%= title %></title>
     <link rel="stylesheet" href="./css/styles.css" />
     <script src="https://cdn.tailwindcss.com"></script>
@@ -14,7 +15,8 @@
     <div class="flex-grow grid grid-cols-6 mb-4">
       <div class="col-start-3 col-span-2">
         <h6 class="font-semibold text-gray-700 py-4">Create a new course</h6>
-        <form action="/editcourse" method="post">
+        <form action="/addcourse" method="post">
+          <input type="hidden" name="_csrf" value="<%= csrfToken %>">
           <div class="py-3">
             <label for="coursename">Name of this course:</label>
             <input
@@ -42,10 +44,7 @@
           </div>
         </form>
 
-        <!-- <% if (true) { %>
-            <h2 class=" font-semibold text-gray-700 py-4" >Created courses</h2>
-            <%- include("createdcourse.ejs") %>
-        <% } %> -->
+       
       </div>
     </div>
 

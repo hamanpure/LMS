@@ -10,8 +10,7 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       // A page belongs to a chapter (One-to-Many)
       Page.belongsTo(models.Chapter, {
-        foreignKey: "chapter_id",
-        as: "chapter", // Alias to reference the chapter this page belongs to
+        foreignKey: "chapter_id"
       });
 
       // A page has many progress entries (One-to-Many)
@@ -30,7 +29,7 @@ module.exports = (sequelize, DataTypes) => {
     {
       sequelize,
       modelName: "Page",
-    }
+    },
   );
   return Page;
 };

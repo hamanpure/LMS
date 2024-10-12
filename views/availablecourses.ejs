@@ -1,10 +1,10 @@
 <div class="flex flex-wrap gap-4">
-  <% for( let index = 0; index < 4; index++ ) { %> 
+  <% for( let index = 0; index < courses.length; index++ ) { %> 
     <div class="w-96 bg-white shadow-md rounded-lg overflow-hidden m-4">
       <div class="p-6">
-        <h2 class="text-xl font-semibold text-gray-800">Course Name</h2>
+        <h2 class="text-xl font-semibold text-gray-800"><%= courses[index].dataValues.name %></h2>
         <div class="my-6 grid grid-cols-2 place-items-center">
-          <p class="text-lg text-gray-500">Instructor</p>
+          <p class="text-lg text-gray-500"><%= courses[index].educator.name %></p>
           <div class="grid grid-cols-2 place-items-center">
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -20,19 +20,33 @@
                 d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z"
               />
             </svg>
-            <span>0</span>
+            <span> 
+              <% if (courses[index].dataValues.report.length === 0) { %>
+               0
+              <% } else {%>
+              <%=courses[index].dataValues.report[0].dataValues.student_count %>
+              <% } %>
+            </span>
           </div>
         </div>
         <div class="my-4 flex space-x-4">
           <!-- Add link to the course page -->
-          <a href="viewcourse" class="flex-1">
+          <a href="/viewcourse/<%= courses[index].id %>" class="flex-1">
             <button class="w-full bg-sky-500 text-white py-2 rounded hover:bg-sky-600 transition duration-200">
               View Course
             </button>
           </a>
-          <button class="flex-1 bg-green-500 text-white py-2 rounded hover:bg-green-600 transition duration-200">
-            Enroll
-          </button>
+          
+          <div class="flex-1">
+            <form action="/enrollment" method="post">
+              <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+              <input type="hidden" name="course_id" value="<%= courses[index].id %>">
+              <button type="submit" class="w-full bg-green-500 text-white py-2 rounded hover:bg-green-600 transition duration-200">
+                Enroll
+              </button>
+            </form>
+          </div>  
+      
         </div>
       </div>
     </div>

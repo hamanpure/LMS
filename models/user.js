@@ -28,10 +28,9 @@ module.exports = (sequelize, DataTypes) => {
       });
 
       User.hasMany(models.Progress, {
-        foreignKey: 'student_id',
-        as: 'progressEntries',  // Alias to access the student's progress entries
+        foreignKey: "student_id",
+        as: "progressEntries", // Alias to access the student's progress entries
       });
-      
     }
   }
   User.init(
@@ -44,7 +43,7 @@ module.exports = (sequelize, DataTypes) => {
     {
       sequelize,
       modelName: "User",
-    }
+    },
   );
   return User;
 };

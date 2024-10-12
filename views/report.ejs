@@ -3,17 +3,13 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="csrf-token" content="<%= csrfToken %>">
     <title><%= title %></title>
     <link rel="stylesheet" href="./css/styles.css" />
     <script src="https://cdn.tailwindcss.com"></script>
   </head>
   <body class="flex flex-col min-h-screen">
     <%- include("header.ejs") %>
-      <% const courses = [
-      { name: "Introduction to Web Development", enrolledStudents: 25, completedStudents: 15, inProgressStudents: 10 },
-      { name: "JavaScript Fundamentals", enrolledStudents: 18, completedStudents: 8, inProgressStudents: 10 },
-      // ... more courses
-    ]; %>
     <!-- Main Content -->
     <main class="flex-grow grid grid-cols-6 mb-4">
       <div class="col-start-2 col-span-4 p-4">
@@ -22,19 +18,22 @@
             <tr class="bg-gray-200">
               <th class="px-4 py-2">Course Name</th>
               <th class="px-4 py-2">Enrolled Students</th>
-              <th class="px-4 py-2">Completed Students</th>
-              <th class="px-4 py-2">In Progress Students</th>
             </tr>
           </thead>
           <tbody>
-            <% courses.forEach(course => { %>
+            <% if (allCourses.length >0) { %>
+             <% for( let i = 0; i < allCourses.length; i++ ) { %>             
               <tr>
-                <td class="border px-4 py-2"><%= course.name %></td>
-                <td class="border px-4 py-2"><%= course.enrolledStudents %></td>
-                <td class="border px-4 py-2"><%= course.completedStudents %></td>
-                <td class="border px-4 py-2"><%= course.inProgressStudents %></td>
+                <td class="border px-4 py-2"><%= allCourses[i].dataValues.name %></td>
+                <% if (allCourses[i].dataValues.report.length!=0) { %>
+                  <td class="border px-4 py-2"><%= allCourses[i].dataValues.report[0].dataValues.student_count %></td>
+                <% } else { %>
+                  <td class="border px-4 py-2">0</td>
+                  <% } %>
               </tr>
-            <% }); %>
+             <% } %>
+            <% } %>
+           
           </tbody>
         </table>
       </div>

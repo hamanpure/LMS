@@ -3,6 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="csrf-token" content="<%= csrfToken %>">
     <title>LMS</title>
     <link rel="stylesheet" href="./css/style.css" />
     <script src="https://cdn.tailwindcss.com"></script>
@@ -16,28 +17,36 @@
       <div class="col-start-3 col-span-2">
         <div class="grid grid-cols-2 py-4 place-items-center gap-2">
             <h1 class="text-4xl font-semibold text-gray-700 py-4">
-              Course Name
+              <%= course.dataValues.name %>
             </h1>
-            <a href="addcourse">
-                <button class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">
+            <div>
+              <form action="/enrollment" method="post">
+                <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+                <input type="hidden" name="course_id" value="<%= course.dataValues.id %>">
+                <button type="submit" class="w-full bg-green-500 text-white py-2 rounded hover:bg-green-600 transition duration-200">
                   Enroll now
                 </button>
-            </a>
+              </form>
+            </div>  
         </div>
         <p class="py-2 text-gray-600">
-           Course description
+           <%= course.dataValues.description %>
         </p>
         <!-- Educator Name -->
         <p class="py-2 text-gray-600 font-medium">
-          Educator: <span class="font-bold">John Doe</span> <!-- Replace 'John Doe' with the actual educator's name -->
+          Educator: <span class="font-bold"><%= educator %></span> <!-- Replace 'John Doe' with the actual educator's name -->
         </p>
-        
-        <% for(let index = 0; index < 5; index++) { 
-          const pageId = `page-${index + 1}`;  // Generate unique page ID for each chapter
+        <% if (chapters.length>0) { %>
+         
+        <% for(let index = 0; index < chapters.length; index++) { 
         %>
-            <!-- Pass pageId to chapter.ejs -->
-            <%- include("chapter.ejs", { pageId: pageId }) %>
+            <%- include("chapter.ejs", {pageId: index+1, page:chapters[index].dataValues.Pages , chaptername:chapters[index].dataValues.name }) %>
         <% } %>
+        <% } else {%>
+          <h1 class="text-4xl font-semibold text-gray-700 py-4">
+              Chapters are not created 
+            </h1>
+          <% }%>
       </div>
     </div>
 

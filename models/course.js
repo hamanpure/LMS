@@ -24,13 +24,20 @@ module.exports = (sequelize, DataTypes) => {
       // A course can have many chapters
       Course.hasMany(models.Chapter, {
         foreignKey: "course_id",
-        as: "chapters",
       });
 
       // A course can have many reports
       Course.hasMany(models.Report, {
         foreignKey: "course_id",
-        as: "reports", // Alias to access all reports for this course
+        as:"report"
+      });
+    }
+
+    static getCourse(userId) {
+      return this.findAll({
+        where: {
+          educator_id: userId,
+        },
       });
     }
   }
@@ -43,7 +50,7 @@ module.exports = (sequelize, DataTypes) => {
     {
       sequelize,
       modelName: "Course",
-    }
+    },
   );
   return Course;
 };

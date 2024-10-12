@@ -11,13 +11,11 @@ module.exports = (sequelize, DataTypes) => {
       // A chapter belongs to a course (One-to-Many)
       Chapter.belongsTo(models.Course, {
         foreignKey: "course_id",
-        as: "course", // Alias to reference the course this chapter belongs to
       });
 
       // A chapter has many pages (One-to-Many)
       Chapter.hasMany(models.Page, {
-        foreignKey: "chapter_id",
-        as: "pages", // Alias to reference the pages within this chapter
+        foreignKey: "chapter_id"
       });
     }
   }
@@ -29,7 +27,7 @@ module.exports = (sequelize, DataTypes) => {
     {
       sequelize,
       modelName: "Chapter",
-    }
+    },
   );
   return Chapter;
 };

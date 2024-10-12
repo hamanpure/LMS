@@ -11,12 +11,10 @@ module.exports = (sequelize, DataTypes) => {
       // An enrollment connects a student to a course (Many-to-Many relationship)
       Enrollment.belongsTo(models.User, {
         foreignKey: "student_id",
-        as: "student", // Alias for the student in the enrollment
       });
 
       Enrollment.belongsTo(models.Course, {
         foreignKey: "course_id",
-        as: "course", // Alias for the course in the enrollment
       });
     }
   }
@@ -29,7 +27,7 @@ module.exports = (sequelize, DataTypes) => {
     {
       sequelize,
       modelName: "Enrollment",
-    }
+    },
   );
   return Enrollment;
 };

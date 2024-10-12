@@ -25,12 +25,12 @@ module.exports = (sequelize, DataTypes) => {
     {
       student_id: DataTypes.INTEGER,
       page_id: DataTypes.INTEGER,
-      completed: DataTypes.BOOLEAN
+      completed: DataTypes.BOOLEAN,
     },
     {
       sequelize,
       modelName: "Progress",
-    }
+    },
   );
   return Progress;
 };
