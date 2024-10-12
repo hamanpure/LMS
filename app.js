@@ -358,7 +358,7 @@ app.post("/addpage", connectEnsureLogin.ensureLoggedIn(), async (req, res) => {
     const result = await Page.create({
       chapter_id: req.body.chapterId, // Ensure chapterId is being passed from the form
       name: req.body.pageName, // Name of the page (required)
-      content: req.body.content || "", // Page content (can be empty or an initial value)
+      content: req.body.content, // Page content (can be empty or an initial value)
     });
 
     // Check if the request is an AJAX request (XMLHttpRequest)
