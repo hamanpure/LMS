@@ -2,62 +2,85 @@
 
 ## Overview
 
-The Learning Management System (LMS) is a web application designed to facilitate online learning and course management. It provides a platform for educators to create and manage courses, chapters, and pages, while students can enroll in courses, complete pages, and track their progress.
+The Learning Management System (LMS) is a web application designed to facilitate online learning and course management. It provides a platform for educators to create and manage courses, while students can enroll in courses, complete content, and track their progress.
 
-## Overview
+## Screenshots
 
-The Learning Management System (LMS) is a web application designed to facilitate online learning and course management.
+### Landing Page
+![Landing Page Screenshot](./public/LMSscreenshots/index.png)
 
-![Continue Course Screenshot](./public/LMSscreenshots/continue_course.png)
+### Login Page
 ![Login Page Screenshot](./public/LMSscreenshots/login.png)
 
-## Features
+### Signup Page
+![Signup Page Screenshot](./public/LMSscreenshots/signup.png)
 
-### Educator Role
+### Student Dashboard
+![Student Dashboard Screenshot](./public/LMSscreenshots/student_dashboard.png)
 
+### View Course
+![View Course Screenshot](./public/LMSscreenshots/view_course.png)
+
+### Continue Course
+![Continue Course Screenshot](./public/LMSscreenshots/continue_course.png)
+
+### Educator Dashboard
 ![Educator Dashboard Screenshot](./public/LMSscreenshots/educator_dashboard.png)
 
+### Create Course
+![Create Course Screenshot](./public/LMSscreenshots/create_course.png)
+
+### Edit Course
+![Edit Course Screenshot](./public/LMSscreenshots/edit_course.png)
+
+### Reports
+![Report Screenshot](./public/LMSscreenshots/report.png)
+
+### Your Courses (Educator View)
+![Your Courses Screenshot](./public/LMSscreenshots/your_courses.png)
+
 ## Features
 
 ### Educator Role
-
-- **Course Management**:
-  - Add and delete courses.
+- **Course Management**: 
+  - Create, edit, and delete courses.
   - View all courses created by the educator.
-- **Chapter Management**:
-  - Add and delete chapters within each course.
-- **Page Management**:
-  - Add and delete pages within each chapter.
-- **Reporting**:
-  - View reports on all courses created, including the count of enrolled students.
+- **Chapter Management**: 
+  - Add and delete chapters within courses.
+- **Page Management**: 
+  - Add and delete pages within chapters.
+- **Reporting**: 
+  - View reports on all courses, including student enrollment data.
 
 ### Student Role
-
-- **Course Enrollment**:
-  - Enroll in available courses.
+- **Course Enrollment**: 
+  - Enroll in courses.
   - View course details without enrolling.
-- **Page Completion**:
-  - Mark pages as complete to track progress.
+- **Page Completion**: 
+  - Track learning progress by marking pages as complete.
 
 ### User Management
-
-- Users can edit and delete their accounts.
-- A landing page for user authentication (sign in or sign up) is available.
+- Both students and educators can edit and delete their accounts.
+- User details are accessible for both students and educators.
+- A landing page is available for sign-in or sign-up.
 
 ## Technologies Used
 
-- **Backend**:
+- **Backend**: 
   - Node.js
   - Express.js
   - Sequelize (ORM for PostgreSQL)
-- **Frontend**:
+- **Frontend**: 
   - EJS (Embedded JavaScript templating)
-- **Authentication**:
+- **Authentication**: 
   - Passport.js (for local authentication)
-- **Testing**:
+- **Testing**: 
   - Jest
   - Supertest
-- **Other Dependencies**:
+  - Cheerio
+- **Styling**: 
+  - Tailwind CSS
+- **Other Dependencies**: 
   - bcrypt (for password hashing)
   - connect-ensure-login (to protect routes)
   - connect-flash (for flash messages)
@@ -66,7 +89,11 @@ The Learning Management System (LMS) is a web application designed to facilitate
 
 ## Live Demo
 
-You can access the live version of the application [here](https://lms-4um5.onrender.com).
+You can access the live demo of the LMS [here](https://lms-4um5.onrender.com).
+
+### Demo Video
+
+Watch the demo video of the LMS [here](<insert_demo_video_link_here>).
 
 ## Getting Started
 
@@ -82,7 +109,6 @@ You can access the live version of the application [here](https://lms-4um5.onren
    ```bash
    git clone https://github.com/HAMANPUREVAIBHAV/LMS.git
    cd LMS
-
    ```
 
 2. Install dependencies:
@@ -124,12 +150,8 @@ npm test
 
 ## Contributing
 
-Contributions are welcome! If you have suggestions or improvements, feel free to fork the repository and submit a pull request.
-
-## License
-
-This project is licensed under the ISC License.
+Contributions are welcome! Feel free to fork the repository and submit a pull request with your improvements.
 
 ## Author
 
-- **Vaibhav**
+- **HAMANPURE VAIBHAV**
