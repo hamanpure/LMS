@@ -14,46 +14,50 @@ The Learning Management System (LMS) is a web application designed to facilitate
 ## Features
 
 ### Educator Role
+
 ![Educator Dashboard Screenshot](./public/LMSscreenshots/educator_dashboard.png)
 
 ## Features
 
 ### Educator Role
-- **Course Management**: 
+
+- **Course Management**:
   - Add and delete courses.
   - View all courses created by the educator.
-- **Chapter Management**: 
+- **Chapter Management**:
   - Add and delete chapters within each course.
-- **Page Management**: 
+- **Page Management**:
   - Add and delete pages within each chapter.
-- **Reporting**: 
+- **Reporting**:
   - View reports on all courses created, including the count of enrolled students.
 
 ### Student Role
-- **Course Enrollment**: 
+
+- **Course Enrollment**:
   - Enroll in available courses.
   - View course details without enrolling.
-- **Page Completion**: 
+- **Page Completion**:
   - Mark pages as complete to track progress.
 
 ### User Management
+
 - Users can edit and delete their accounts.
 - A landing page for user authentication (sign in or sign up) is available.
 
 ## Technologies Used
 
-- **Backend**: 
+- **Backend**:
   - Node.js
   - Express.js
   - Sequelize (ORM for PostgreSQL)
-- **Frontend**: 
+- **Frontend**:
   - EJS (Embedded JavaScript templating)
-- **Authentication**: 
+- **Authentication**:
   - Passport.js (for local authentication)
-- **Testing**: 
+- **Testing**:
   - Jest
   - Supertest
-- **Other Dependencies**: 
+- **Other Dependencies**:
   - bcrypt (for password hashing)
   - connect-ensure-login (to protect routes)
   - connect-flash (for flash messages)
@@ -78,6 +82,8 @@ You can access the live version of the application [here](https://lms-4um5.onren
    ```bash
    git clone https://github.com/HAMANPUREVAIBHAV/LMS.git
    cd LMS
+
+   ```
 
 2. Install dependencies:
 
