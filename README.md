@@ -93,7 +93,7 @@ You can access the live demo of the LMS [here](https://lms-4um5.onrender.com).
 
 ### Demo Video
 
-Watch the demo video of the LMS [here](<insert_demo_video_link_here>).
+Watch the demo video of the LMS [here](https://youtu.be/R06FCGwKsSg).
 
 ## Getting Started
 
