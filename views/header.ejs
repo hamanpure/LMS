@@ -1,5 +1,6 @@
 <header class="bg-orange-400">
   <nav class="mx-auto text-lg font-bold flex max-w-7xl items-center justify-between p-6 lg:px-8" aria-label="Global">
+    <!-- Logo and Title -->
     <div class="flex lg:flex-1 text-white">
       <a href="/" class="-m-1.5 p-1.5">
         <span class="sr-only">LMS</span>
@@ -7,9 +8,19 @@
           <path stroke-linecap="round" stroke-linejoin="round" d="M12 21v-8.25M15.75 21v-8.25M8.25 21v-8.25M3 9l9-6 9 6m-1.5 12V10.332A48.36 48.36 0 0 0 12 9.75c-2.551 0-5.056.2-7.5.582V21M3 21h18M12 6.75h.008v.008H12V6.75Z" />
         </svg>
       </a>
-      <a href="/"><h1 class="px-2">Learning Management System</h1></a>
+      <a href="/" class="pl-2"><h1 class="text-base md:text-lg">Learning Management System</h1></a>
     </div>
 
+    <!-- Mobile Menu Button -->
+    <div class="lg:hidden">
+      <button type="button" class="text-white" onclick="toggleMobileMenu()">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 7.5h16.5m-16.5 4.5h16.5m-16.5 4.5h16.5" />
+        </svg>
+      </button>
+    </div>
+
+    <!-- Desktop Navigation -->
     <div class="hidden lg:flex lg:flex-1 lg:justify-end relative">
       <div class="text-lg font-medium grid grid-cols-2 text-white">
         <a id="user-icon" href="javascript:void(0);" onclick="toggleDropdown()">
@@ -20,12 +31,18 @@
         <a href="/signout" class="text-lg font-medium leading-6 text-white">Sign out<span aria-hidden="true">&rarr;</span></a>
       </div>
 
-      
       <!-- Dropdown Menu -->
       <div id="dropdown-menu" class="absolute right-0 mt-6 w-48 bg-white rounded-lg shadow-lg hidden">
         <a href="/user" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">Account</a>
         <a href="/edituser" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">Change Password</a>
       </div>
+    </div>
+
+    <!-- Mobile Menu -->
+    <div id="mobile-menu" class="lg:hidden hidden absolute right-0 mt-6 w-48 bg-white rounded-lg shadow-lg">
+      <a href="/user" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">Account</a>
+      <a href="/edituser" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">Change Password</a>
+      <a href="/signout" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">Sign out</a>
     </div>
   </nav>
 </header>
@@ -36,10 +53,15 @@
     dropdownMenu.classList.toggle('hidden');
   }
 
-  // Optionally close dropdown if clicking outside of it
+  function toggleMobileMenu() {
+    const mobileMenu = document.getElementById('mobile-menu');
+    mobileMenu.classList.toggle('hidden');
+  }
+
   window.onclick = function(event) {
-    if (!event.target.closest('#user-icon')) {
+    if (!event.target.closest('#user-icon') && !event.target.closest('button')) {
       document.getElementById('dropdown-menu').classList.add('hidden');
+      document.getElementById('mobile-menu').classList.add('hidden');
     }
   };
 </script>

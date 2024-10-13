@@ -9,31 +9,42 @@
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body class="flex flex-col min-h-screen">
-    <header class="bg-orange-400">
-        <nav class="mx-auto text-lg font-bold flex max-w-7xl items-center justify-between p-6 lg:px-8" aria-label="Global">
-          <div class="flex lg:flex-1 text-white">
-            <a href="/" class="-m-1.5 p-1.5">
-              <span class="sr-only">LMS</span>
-              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
-                  <path stroke-linecap="round" stroke-linejoin="round" d="M12 21v-8.25M15.75 21v-8.25M8.25 21v-8.25M3 9l9-6 9 6m-1.5 12V10.332A48.36 48.36 0 0 0 12 9.75c-2.551 0-5.056.2-7.5.582V21M3 21h18M12 6.75h.008v.008H12V6.75Z" />
-                </svg>   
-            </a>
-            <a href="/"><h1 class="px-2">Learning Management System</h1></a>
-          </div>
-         
-          <!-- <div class="hidden lg:flex lg:gap-x-12">
-      
-            <a href="#" class="text-sm font-semibold leading-6 text-gray-900">Features</a>
-            <a href="#" class="text-sm font-semibold leading-6 text-gray-900">Marketplace</a>
-            <a href="#" class="text-sm font-semibold leading-6 text-gray-900">Company</a>
-          </div> -->
-          <div class="hidden lg:flex lg:flex-1 lg:justify-end">
-            <a href="/login" class=" text-lg font-medium leading-6 text-white">Sign-in <span aria-hidden="true">&rarr;</span></a>
-          </div>
-        </nav>
-      </header>
-      
-    
+  <header class="bg-orange-400">
+    <nav class="mx-auto text-lg font-bold flex max-w-7xl items-center justify-between p-6 lg:px-8" aria-label="Global">
+      <!-- Logo and Title -->
+      <div class="flex lg:flex-1 text-white">
+        <a href="/" class="-m-1.5 p-1.5">
+          <span class="sr-only">LMS</span>
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="h-6 w-6">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M12 21v-8.25M15.75 21v-8.25M8.25 21v-8.25M3 9l9-6 9 6m-1.5 12V10.332A48.36 48.36 0 0 0 12 9.75c-2.551 0-5.056.2-7.5.582V21M3 21h18M12 6.75h.008v.008H12V6.75Z" />
+          </svg>   
+        </a>
+        <a href="/" class="pl-2">
+          <h1 class="text-lg font-bold">Learning Management System</h1>
+        </a>
+      </div>
+  
+      <!-- Mobile Menu Button (Hamburger) -->
+      <div class="lg:hidden">
+        <button type="button" class="text-white" onclick="toggleMobileMenu()">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="h-6 w-6">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 7.5h16.5m-16.5 4.5h16.5m-16.5 4.5h16.5" />
+          </svg>
+        </button>
+      </div>
+  
+      <!-- Desktop Navigation (Sign-in) -->
+      <div class="hidden lg:flex lg:flex-1 lg:justify-end">
+        <a href="/login" class="text-lg font-medium leading-6 text-white">Sign-in <span aria-hidden="true">&rarr;</span></a>
+      </div>
+    </nav>
+  
+    <!-- Mobile Menu (Hidden by default) -->
+    <div id="mobile-menu" class="lg:hidden hidden">
+      <a href="/login" class="block px-4 py-2 text-white">Sign-in</a>
+    </div>
+  </header>
+
     <!-- Main Content -->
     <div class="flex-grow grid grid-cols-6 mb-4">
         
@@ -109,5 +120,12 @@
     </div>
 
     <%- include("footer.ejs") %>
+
+    <script>
+      function toggleMobileMenu() {
+        const mobileMenu = document.getElementById('mobile-menu');
+        mobileMenu.classList.toggle('hidden');
+      }
+    </script>
 </body>
 </html>
