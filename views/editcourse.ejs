@@ -93,31 +93,33 @@
       
       
 
-      <div class="col-span-1 p-4 bg-gray-100 rounded-lg shadow-md">
+      <div class="col-span-1 p-4 bg-gray-100 rounded-lg  shadow-md">
         <h2 class="text-xl font-semibold text-gray-700 mb-4">
           Chapters for <%= course.name %> 
         </h2>
         <div id="chapters" class="flex flex-col">
           <% course.Chapters.forEach(chapter => { %>
           <div
-            class="py-2 hover:bg-gray-300 cursor-pointer chapter relative"
+            class="py-2 hover:bg-gray-300 cursor-pointer rounded chapter relative px-2"
             data-chapter-id="<%= chapter.id %>"
             onclick="togglePages('<%= chapter.id %>')"
           >
             <h3 class="font-medium"><%= chapter.name %></h3>
             <div class="hidden pages ml-4" id="<%= chapter.id %>">
-              <% chapter.Pages.forEach(page => { %>
+              <% for( let i = 0; i < chapter.Pages.length; i++ ) { 
+                const page_id = i+1;
+                %>
               <div
                 class="text-sm text-gray-600 py-1 cursor-pointer relative group"
-                data-page-id="<%= page.id %>"
-                onclick="loadPage('<%= page.id %>', '<%= page.name %>', '<%= page.content %>')"
+                data-page-id="<%= page_id %>"
+                onclick="loadPage('<%= chapter.Pages[i].id %>', '<%= chapter.Pages[i].name %>', '<%= chapter.Pages[i].content %>')"
               >
-                <%= page.name %>
+                <%= chapter.Pages[i].name %>
                 <!-- delete page -->
                 <button
                   type="button"
                   class="absolute top-0 right-2 text-red-500 opacity-0 group-hover:opacity-100"
-                  onclick="deletePage('<%= page.id %>')"
+                  onclick="deletePage('<%= chapter.Pages[i].id %>')"
                 >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -135,7 +137,7 @@
                   </svg>
                 </button>
               </div>
-              <% }) %>
+              <% } %>
             </div>
 
             <!-- Form to Add a New Page -->

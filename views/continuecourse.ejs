@@ -100,7 +100,7 @@
             <% const page = course.Chapters[index].Pages[i]; %>
             <% const isCompleted = progressMap[page.id] ? 'checked' : ''; %>
             <li 
-                onclick="showPageContent('<%= page.content %>', '<%= course.Chapters[index].dataValues.name %>', <%= page.id %>)" 
+                onclick="showPageContent('<%= page.content %>', '<%= course.Chapters[index].dataValues.name %>',)" 
                 class="py-2 pl-4 pr-2 bg-gray-200 rounded-lg mb-2 border-l-4 border-orange-500 hover:bg-gray-300 hover:shadow-md transition-all duration-300 ease-in-out cursor-pointer">
                 
                 <input type="checkbox" data-page-id="<%= page.id %>" onclick="checkpage(<%= page.id %>)" class="form-checkbox h-5 w-5 text-orange-600 border-gray-300 rounded focus:ring-orange-500" <%= isCompleted %> />
@@ -141,8 +141,7 @@
         pagesList.classList.toggle('hidden');
       }
 
-      function showPageContent(content, chapter, pageId) {
-        currentPageId = pageId; // Store the current page ID
+      function showPageContent(content, chapter) {
         const pageContentDiv = document.getElementById('page-content');
         pageContentDiv.innerHTML = `<h3 class="text-xl font-bold">${chapter}</h3><p>${content}</p>`;
       }

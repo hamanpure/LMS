@@ -17,7 +17,7 @@
   function deletecourse(id) {
     var token = document.querySelector('meta[name="csrf-token"]').getAttribute("content");
 
-    if (confirm(`Are you sure you want to delete this course ? = ${id}`)) {
+    if (confirm(`Are you sure you want to delete this course ?`)) {
       fetch(`/deletecourse/${id}`, {
         method: 'DELETE',  // Make sure the HTTP method is DELETE
         headers: {

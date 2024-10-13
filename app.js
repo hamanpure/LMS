@@ -111,17 +111,78 @@ app.get("/", (req, res) => {
 
 // Signup route
 app.get("/signup", (req, res) => {
-  res.render("signup", { title: "Signup", csrfToken: req.csrfToken() });
+  res.render("signup", {
+    title: "Signup",
+    csrfToken: req.csrfToken(),
+    errorMessages: [],
+  });
 });
 
+// app.post("/users", async (req, res) => {
+//   const hashedPwd = await bcrypt.hash(req.body.password, saltRounds);
+
+//   try {
+//     const user = await User.create({
+//       name: req.body.name,
+//       role: req.body.role,
+//       email: req.body.email,
+//       password: hashedPwd,
+//     });
+
+//     req.login(user, (err) => {
+//       if (err) {
+//         console.log(err);
+//         return res.status(500).json({ error: "Login failed" });
+//       }
+//       res.redirect("/dashboard");
+//     });
+//   } catch (error) {
+//     if (error.name === "SequelizeValidationError") {
+//       error.errors.forEach((e) => req.flash("error", e.message));
+//       return res.redirect("/signup");
+//     }
+//     console.log(error);
+//     return res.status(500).json({ error: "Internal server error" });
+//   }
+// });
+
+// Login route
+
 app.post("/users", async (req, res) => {
-  const hashedPwd = await bcrypt.hash(req.body.password, saltRounds);
+  const { name, role, email, password } = req.body;
+  const errorMessages = [];
+
+  // Validate input
+  if (name.length < 4) {
+    errorMessages.push("Name must be at least 4 characters long.");
+  }
+  if (!["educator", "student"].includes(role)) {
+    errorMessages.push("Invalid role selected.");
+  }
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  if (!emailRegex.test(email)) {
+    errorMessages.push("Please enter a valid email address.");
+  }
+  if (password.length < 8) {
+    errorMessages.push("Password must be at least 8 characters long.");
+  }
+
+  // If there are validation errors, re-render the signup page with error messages
+  if (errorMessages.length > 0) {
+    return res.render("signup", {
+      title: "Signup",
+      csrfToken: req.csrfToken(),
+      errorMessages,
+    });
+  }
+
+  const hashedPwd = await bcrypt.hash(password, saltRounds);
 
   try {
     const user = await User.create({
-      name: req.body.name,
-      role: req.body.role,
-      email: req.body.email,
+      name,
+      role,
+      email,
       password: hashedPwd,
     });
 
@@ -142,9 +203,13 @@ app.post("/users", async (req, res) => {
   }
 });
 
-// Login route
 app.get("/login", (req, res) => {
-  res.render("login", { title: "Login", csrfToken: req.csrfToken() });
+  const errorMessages = req.flash("error");
+  res.render("login", {
+    title: "Login",
+    csrfToken: req.csrfToken(),
+    errorMessages,
+  });
 });
 
 app.post(
@@ -253,6 +318,7 @@ app.get("/addcourse", connectEnsureLogin.ensureLoggedIn(), (req, res) => {
   res.render("addcourse", {
     title: "Add Course",
     csrfToken: req.csrfToken(),
+    errorMessages: [],
   });
 });
 
@@ -262,6 +328,21 @@ app.post(
   connectEnsureLogin.ensureLoggedIn(),
   async (req, res) => {
     const { coursename, coursediscription } = req.body;
+    const errorMessages = [];
+
+    // Validate course description length
+    if (coursediscription.length <= 5) {
+      errorMessages.push("Course description must be more than 5 characters.");
+    }
+
+    // If there are validation errors, re-render the addcourse page with error messages
+    if (errorMessages.length > 0) {
+      return res.render("addcourse", {
+        title: "Add Course",
+        csrfToken: req.csrfToken(),
+        errorMessages, // Pass error messages to the view
+      });
+    }
 
     try {
       // Create a new course and associate it with the logged-in educator (user)
@@ -326,7 +407,10 @@ app.post(
       });
 
       // Check if the request is an AJAX request (XMLHttpRequest)
-      if (req.xhr || req.headers.accept.indexOf("json") > -1) {
+      if (
+        req.xhr ||
+        (req.headers.accept && req.headers.accept.indexOf("json") > -1)
+      ) {
         // Return JSON response for AJAX requests
         res.status(201).json({ chapter: result });
       } else {
@@ -362,7 +446,10 @@ app.post("/addpage", connectEnsureLogin.ensureLoggedIn(), async (req, res) => {
     });
 
     // Check if the request is an AJAX request (XMLHttpRequest)
-    if (req.xhr || req.headers.accept.indexOf("json") > -1) {
+    if (
+      req.xhr ||
+      (req.headers.accept && req.headers.accept.indexOf("json") > -1)
+    ) {
       // Return JSON response for AJAX requests
       res.status(201).json({ page: result });
     } else {
@@ -373,15 +460,7 @@ app.post("/addpage", connectEnsureLogin.ensureLoggedIn(), async (req, res) => {
     console.error("Error adding page:", error);
 
     // Handle error for both AJAX and form submissions
-    if (req.xhr || req.headers.accept.indexOf("json") > -1) {
-      return res.status(500).json({ error: "Internal server error" });
-    } else {
-      // Flash an error message or redirect with an error message for form submissions
-      req.flash("error", "Unable to add the page.");
-      res.redirect(
-        `/editcourse?course_id=${req.body.courseId}&error=Unable to add page`,
-      );
-    }
+    return res.status(500).json({ error: "Internal server error" });
   }
 });
 
@@ -659,43 +738,6 @@ app.get("/report", connectEnsureLogin.ensureLoggedIn(), async (req, res) => {
 //   res.render("continuecourse", { title: "Continue Course" });
 // });
 
-app.post(
-  "/mark-complete/:pageId",
-  connectEnsureLogin.ensureLoggedIn(),
-  async (req, res) => {
-    try {
-      const studentId = req.user.id; // Logged-in student
-      const { pageId } = req.params; // Page ID from the route
-      const { completed } = req.body; // Get the completed status from the request body
-
-      // Find the progress record for the student and page
-      let progress = await Progress.findOne({
-        where: { student_id: studentId, page_id: pageId },
-      });
-
-      if (progress) {
-        // Update the existing progress record with the new status
-        progress.completed = completed;
-        await progress.save();
-      } else {
-        // Create a new progress record if it doesn't exist
-        await Progress.create({
-          student_id: studentId,
-          page_id: pageId,
-          completed: completed, // Save the completed status
-        });
-      }
-
-      res.json({ success: true });
-    } catch (error) {
-      console.error("Error updating progress:", error);
-      res
-        .status(500)
-        .json({ success: false, message: "Failed to update progress" });
-    }
-  },
-);
-
 app.get(
   "/continuecourse/:courseId",
   connectEnsureLogin.ensureLoggedIn(),
@@ -741,8 +783,8 @@ app.get(
         title: "Continue Course",
         course: course,
         educator: educator,
-        csrfToken: req.csrfToken(),
         progressMap: progressMap, // Pass the progress data to the EJS view
+        csrfToken: req.csrfToken(),
       });
     } catch (error) {
       console.error("Error loading course:", error);
@@ -751,31 +793,31 @@ app.get(
   },
 );
 
-//progress mark as complete
+//mark as complete and uncomplete
 app.post(
-  "/mark-complete/:id",
+  "/mark-complete/:pageId",
   connectEnsureLogin.ensureLoggedIn(),
   async (req, res) => {
     try {
-      const pageId = req.params.id; // Get pageId and completed status from the request body
-      const studentId = req.user.id; // Assuming the logged-in user is the student
-      // console.log("-----------------------------------");
-      // console.log(pageId);
-      // Find the progress entry for the current user and page
+      const studentId = req.user.id; // Logged-in student
+      const { pageId } = req.params; // Page ID from the route
+      const { completed } = req.body; // Get the completed status from the request body
+
+      // Find the progress record for the student and page
       let progress = await Progress.findOne({
         where: { student_id: studentId, page_id: pageId },
       });
 
       if (progress) {
-        // Update the existing progress record
-        progress.completed = true;
+        // Update the existing progress record with the new status
+        progress.completed = completed;
         await progress.save();
       } else {
         // Create a new progress record if it doesn't exist
         await Progress.create({
           student_id: studentId,
           page_id: pageId,
-          completed: true,
+          completed: completed, // Save the completed status
         });
       }
 
@@ -809,7 +851,7 @@ app.get(
 
       if (enrollment) {
         // User is already enrolled; redirect to continuecourse
-        return res.redirect("/continuecourse");
+        return res.redirect(`/continuecourse/${course_id}`);
       }
       const course = await Course.findOne({
         where: { id: course_id },

@@ -13,6 +13,8 @@
     <!-- Main Content -->
     <main class="flex-grow grid grid-cols-6 mb-4">
       <div class="col-start-2 col-span-4 p-4">
+
+        <% if (allCourses.length >0) { %>
         <table class="table-auto w-full">
           <thead>
             
@@ -22,7 +24,7 @@
             </tr>
           </thead>
           <tbody>
-            <% if (allCourses.length >0) { %>
+            
              <% for( let i = 0; i < allCourses.length; i++ ) { %>             
               <tr>
                 <td class="border px-4 py-2"><%= allCourses[i].dataValues.name %></td>
@@ -33,10 +35,16 @@
                   <% } %>
               </tr>
              <% } %>
-            <% } %>
-           
+            
           </tbody>
         </table>
+        <% } else {%>
+          <h1 class="text-xl font-semibold text-gray-700 py-4 ">
+            You have not Crated any Coure 
+            Create one
+          </h1>
+          
+          <% } %>
       </div>
     </main>
 

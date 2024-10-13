@@ -4,6 +4,18 @@
 
 The Learning Management System (LMS) is a web application designed to facilitate online learning and course management. It provides a platform for educators to create and manage courses, chapters, and pages, while students can enroll in courses, complete pages, and track their progress.
 
+## Overview
+
+The Learning Management System (LMS) is a web application designed to facilitate online learning and course management.
+
+![Continue Course Screenshot](./public/LMSscreenshots/continue_course.png)
+![Login Page Screenshot](./public/LMSscreenshots/login.png)
+
+## Features
+
+### Educator Role
+![Educator Dashboard Screenshot](./public/LMSscreenshots/educator_dashboard.png)
+
 ## Features
 
 ### Educator Role
