@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Learning Management System (LMS)
 
 ## Overview
@@ -155,3 +156,6 @@ Contributions are welcome! Feel free to fork the repository and submit a pull re
 ## Author
 
 - **HAMANPURE VAIBHAV**
+=======
+# LMS
+>>>>>>> 527c9991327ca6668aec1f5c63ba682e583f640d
