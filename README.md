@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 # Learning Management System (LMS)
 
 ## Overview
@@ -108,7 +107,7 @@ Watch the demo video of the LMS [here](https://youtu.be/R06FCGwKsSg).
 1. Clone the repository:
 
    ```bash
-   git clone https://github.com/HAMANPUREVAIBHAV/LMS.git
+   git clone https://github.com/hamanpure/LMS.git
    cd LMS
    ```
 
@@ -156,6 +155,3 @@ Contributions are welcome! Feel free to fork the repository and submit a pull re
 ## Author
 
 - **HAMANPURE VAIBHAV**
-=======
-# LMS
->>>>>>> 527c9991327ca6668aec1f5c63ba682e583f640d
